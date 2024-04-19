@@ -112,7 +112,31 @@ int	valid_arg(char **av)
 	
 // }
 
+int f_atoi(const char *str) {
+	int result = 0;
+	int sign = 1;
 
+	while(str != NULL && *str != '\0'){
+
+		result *= 10;
+		if(*str == ' ' || (*str >= '\t' && *str <= '\r')){
+			str++;
+			continue;
+		}
+		else if (*str == '-')
+		{
+			sign = -1;
+		}
+		else if (*str >= '0' && *str <= '9')
+		{
+			result += *str - '0';
+		}
+		str++;
+	}
+	result *= sign;
+
+	return result;
+}
 
 
 int parseHex(char *str){
@@ -152,6 +176,16 @@ int main (int ac, char **av){
 
 	int s = parseHex(str);
 	printf("%d",s);
+
+	int a = f_atoi(" \r\r -123");
+	printf("%d",a);
+	a = f_atoi("-130954");
+	printf("%d",a);
+	a = f_atoi("8936");
+	printf("%d",a);
+	a = f_atoi("+85436");
+	printf("%d",a);
+	
 }
 
 
